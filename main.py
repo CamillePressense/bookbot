@@ -1,14 +1,15 @@
 def main() :
     book_path = "books/frankenstein.txt"
     text = get_book_text(book_path)
-    count_words = countwords(text)
-    count_characters = countcharacters(text)
+    words_count = get_words_count(text)
+    characters_count = get_characters_count(text)
+    characters_by_frequency_desc = get_characters_by_frequency_desc(characters_count)
+
     print(f"--- Begin report of {book_path} ---")
-    print(f"{count_words} words found in the document")
+    print(f"{words_count} words found in the document")
     print()
-    list_in_order = put_in_order(count_characters)
-    for l in list_in_order:
-        print(f"The '{(l['character'])}' character was found {(l['num'])} times")
+    for c in characters_by_frequency_desc:
+        print(f"The '{(c['character'])}' character was found {(c['num'])} times")
     print("--- End report ---")
    
 
@@ -17,11 +18,11 @@ def get_book_text(path):
     with open(path) as f:
         return f.read()
 
-def countwords(fulltext):
+def get_words_count(fulltext):
     words = fulltext.split()
     return len(words)
 
-def countcharacters(fulltext):
+def get_characters_count(fulltext):
     count = {}
     lowered_text = fulltext.lower()
     characters = list(lowered_text)
@@ -35,7 +36,7 @@ def countcharacters(fulltext):
 def sort_on(count):
     return count["num"]
 
-def put_in_order (count):
+def get_characters_by_frequency_desc (count):
     count_in_order = []
     for c in count :
         if c.isalpha() == True:
@@ -50,7 +51,7 @@ def put_in_order (count):
 
 def characters_report(count):
     for c in count:
-        return (f"The {c} character was found {count_characters[c]} times") 
+        return (f"The {c} character was found {characters_count[c]} times") 
            
 
 main ()
